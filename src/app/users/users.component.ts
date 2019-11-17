@@ -280,11 +280,8 @@ export class UsersComponent implements OnInit {
         },
         error => {
           this.spinner.hide();
-          $("#addVendor").modal("hide");
         }
       );
-    } else {
-      $("#addVendor").modal("hide");
     }
 
     // window.location.reload();
