@@ -6,7 +6,6 @@ import { appRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
-import { RegisterComponent } from "./register/register.component";
 import { UserFormComponent } from "./user-form/user-form.component";
 import { UsersComponent } from "./users/users.component";
 /* Guards */
@@ -21,7 +20,6 @@ NgModule({
     LoginComponent,
     UsersComponent,
     UserDetailsComponent,
-    RegisterComponent,
     UserFormComponent
   ],
   bootstrap: [AppComponent]
