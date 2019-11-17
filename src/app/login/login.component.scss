@@ -1,0 +1,96 @@
+// component css goes here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: arial;
+}
+
+.loginCont {
+  width: 400px;
+  height: 450px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+input {
+  border: none;
+}
+input:focus {
+  outline: none;
+  border: none;
+  background: #fff;
+}
+.inputCont {
+  font-size: 14px;
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid grey;
+  line-height: 30px;
+
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.btn {
+  width: 49%;
+  height: 30px;
+  cursor: pointer;
+  border: 1px solid grey;
+}
+
+.fLeft {
+  float: left;
+}
+.fRight {
+  float: right;
+}
+.forgotTxt {
+  font-size: 12px;
+}
+
+.cursor {
+  cursor: pointer;
+}
+.disable {
+  opacity: 0.5;
+}
+.enable {
+  opacity: 1 !important;
+}
+.fs14 {
+  font-size: 14px;
+}
+
+.navbar-expand-md .navbar-toggler {
+  display: block !important;
+  background-color: white;
+}
+.bg-top-color {
+  background-color: #ffffff;
+  height: 70px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.submitScreen {
+}
+// textarea {
+//   border: none;
+//   outline: none;
+//   width: 100%;
+//   min-height: 50px;
+//   resize: none;
+// }
+
+// textarea:focus {
+//   border: none;
+// }

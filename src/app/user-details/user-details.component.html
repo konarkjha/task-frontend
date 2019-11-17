@@ -1,0 +1,99 @@
+<ngx-spinner
+  [bdColor]="spinnerConfigs.BDCOLOR"
+  [size]="spinnerConfigs.SIZE"
+  [color]="spinnerConfigs.COLOR"
+  [type]="spinnerConfigs.TYPE"
+  [fullScreen]="spinnerConfigs.FULLSCREEN"
+>
+  <p [style.color]="spinnerConfigs.SPINNER_TEXT_COLOR">
+    {{ spinnerConfigs.SPINNER_TEXT }}
+  </p>
+</ngx-spinner>
+<div class="my-4">
+  <img src="assets/images/Back.svg" routerLink="/users" />
+
+  <span class="ml-3  back">Back to list</span>
+
+  <label>&nbsp;</label>
+  <label>&nbsp;</label>
+</div>
+<div class="card">
+  <div class="card-header">
+    <h4 class="w-75 float-left">User Details Page</h4>
+    <div class="w-25 float-right">
+      <button
+        class="btn btn-color float-right"
+        routerLink="/user-form/{{
+          userDetails && userDetails ? userDetails.id : ''
+        }}"
+        *ngIf="
+          userRoles &&
+          userRoles.userManagement[0] &&
+          userRoles.userManagement[0].Edit
+        "
+      >
+        Edit
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="col-lg-3 float-left">
+      <div class="productLabel font-size-15px">Image</div>
+      <div class="productValue" data-target="#userImage" data-toggle="modal">
+        <img
+          src="{{ userDetails && userDetails ? userDetails.photoUrl : '' }}"
+          class="photoSize"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="col-lg-3 float-left">
+      <div class="productLabel font-size-20px">Name</div>
+      <div class="productValue">
+        {{ userDetails && userDetails ? userDetails.name : "" }}
+      </div>
+    </div>
+    <div class="col-lg-3 float-left">
+      <div class="productLabel font-size-20px">Contact Number</div>
+      <div class="productValue">
+        {{ userDetails && userDetails ? userDetails.contactNumber : "" }}
+      </div>
+    </div>
+    <div class="col-lg-3 float-left">
+      <div class="productLabel font-size-20px">Email ID</div>
+      <div class="productValue">
+        {{ userDetails && userDetails ? userDetails.email : "" }}
+      </div>
+    </div>
+    <div class="col-lg-3 float-left">
+      <div class="productLabel font-size-20px">User Type</div>
+      <div class="productValue">
+        {{ userDetails && userDetails ? userDetails.userType : "" }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="userImage">
+  <div class="modal-dialog modal-dialog-centered popup">
+    <div class="modal-content ">
+      <div class="modal-header border-0 pt-0 ml-auto">
+        <div class="modal-title">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </div>
+      </div>
+      <div class="modal-body p-0">
+        <img
+          src="{{ userDetails && userDetails ? userDetails.photoUrl : '' }}"
+          class="zoomImg"
+        />
+      </div>
+    </div>
+  </div>
+</div>

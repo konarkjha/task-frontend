@@ -1,0 +1,11 @@
+.cardBox {
+  box-shadow: 0px 2px 6px 2px #00000047;
+  width: 18rem;
+}
+.cardBox:hover {
+  box-shadow: 0px 1px 3px 1px #00000047;
+  transition: ease 1s;
+}
+.modal-margin {
+  margin: 2%;
+}

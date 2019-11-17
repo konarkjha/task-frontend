@@ -1,0 +1,435 @@
+<div class="header">
+  <div class="pt-2 pb-2">
+    <span class="float-left page-header">All Users</span>
+    <span class="smallPageHeader" *ngIf="users">({{ users.length }})</span>
+
+    <div
+      class="add cursor-pointer"
+      data-target="#userModal"
+      class="btn btn-color float-right"
+      data-toggle="modal"
+      *ngIf="
+        userRoles &&
+        userRoles['userManagement'] &&
+        userRoles.userManagement[0].Add
+      "
+    >
+      <i class="fas fa-plus"></i>
+      Add User With Role
+    </div>
+
+    <div class="d-inline">
+      <div class="col-sm-4 input-group mb-3 float-right w-50">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white" id="searchprepend"
+            ><i class="fa fa-search"></i
+          ></span>
+        </div>
+        <input
+          type="text"
+          class="form-control searchInput"
+          placeholder="Search user by name, email, contact no.."
+          aria-label="Search user by name, email, contact no.."
+          aria-describedby="searchprepend"
+          [(ngModel)]="searchText"
+          (ngModelChange)="searchUser($event)"
+        />
+      </div>
+      <div class="float-right mr-2 pl-2">
+        <select
+          class="userDropDown fs14"
+          (change)="filterUsers()"
+          [(ngModel)]="filterUserValue"
+        >
+          <option class="fs14" [ngValue]="null">All Users</option>
+          <option
+            style="font-size: 14px;"
+            *ngFor="let user of userTypes; let i = index"
+          >
+            {{ user }}</option
+          >
+        </select>
+      </div>
+      <label class="float-right mr-2 mt-2 fs10">Filter By user Type</label>
+    </div>
+    <ngx-spinner
+      [bdColor]="spinnerConfigs.BDCOLOR"
+      [size]="spinnerConfigs.SIZE"
+      [color]="spinnerConfigs.COLOR"
+      [type]="spinnerConfigs.TYPE"
+      [fullScreen]="spinnerConfigs.FULLSCREEN"
+    >
+      <p [style.color]="spinnerConfigs.SPINNER_TEXT_COLOR">
+        {{ spinnerConfigs.SPINNER_TEXT }}
+      </p>
+    </ngx-spinner>
+
+    <div>
+      <table class="table table-hover table-fixed-head">
+        <thead class="thead">
+          <tr class="fs16">
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">
+              Contact Number
+            </th>
+            <th scope="col">Email</th>
+            <th scope="col">User Type</th>
+            <th scope="col">View</th>
+            <th
+              scope="col"
+              *ngIf="
+                userRoles &&
+                userRoles['userManagement'] &&
+                userRoles.userManagement[0].Delete
+              "
+            >
+              Delete
+            </th>
+          </tr>
+        </thead>
+
+        <tbody
+          class="list-table-scroll-tbody"
+          infinite-scroll
+          [infiniteScrollDistance]="scrollDistance"
+          [infiniteScrollUpDistance]="scrollUpDistance"
+          [infiniteScrollThrottle]="throttle"
+          [scrollWindow]="false"
+          (scrolled)="onScrollDown()"
+          *ngIf="users.length"
+        >
+          <!-- (scrolledUp)="onUp()" -->
+          <tr class="fs13" *ngFor="let user of users; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ user.name }}</td>
+            <td>{{ user.contactNumber }}</td>
+            <td [title]="user.email">{{ user.email }}</td>
+            <td>{{ user.userType }}</td>
+            <td>
+              <i
+                class="fas fa-eye cursor-pointer mx-2"
+                routerLink="/user-details/{{ user.id }}"
+              ></i>
+            </td>
+            <td
+              data-target="#delete"
+              [ngClass]="{ disable: loggedInUserType.userType != 'ADMIN' }"
+              data-toggle="modal"
+              (click)="deletStoreId(user.id)"
+              *ngIf="
+                userRoles &&
+                userRoles['userManagement'] &&
+                userRoles.userManagement[0].Delete
+              "
+            >
+              <i class="fas fa-trash-alt cursor-pointer mx-3"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="loaderTrigger">
+      <img src="assets/images/loader2.gif" class="loader small-loader" alt="" />
+    </div>
+
+    <div class="row col-md-12" *ngIf="manageSpinner.enableSpinner == true">
+      <div class="col-sm-12 mt-3">
+        <div class="d-flex align-items-center">
+          <strong>Loading...</strong>
+          <div
+            class="spinner-border ml-auto"
+            role="status"
+            aria-hidden="true"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="row col-md-12"
+      *ngIf="
+        manageSpinner.showDataNotFound == true &&
+        manageSpinner.enableSpinner == false
+      "
+    >
+      <div class="col-sm-12 mt-3">
+        <div class="alert alert-danger text-center">
+          No user found
+        </div>
+      </div>
+    </div>
+
+    <!-- create user  -->
+    <div
+      class="container"
+      *ngIf="
+        userRoles &&
+        userRoles['userManagement'] &&
+        userRoles.userManagement[0].Add
+      "
+    >
+      <div class="modal fade" id="userModal">
+        <div class="modal-dialog modal-dialog-centered popup">
+          <div class="modal-content p-4">
+            <div class="modal-header border-0 pt-0">
+              <div class="modal-title">
+                <div class="fs30">
+                  <h2 class="no-background"><span>Create New User</span></h2>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <form [formGroup]="registrationForm">
+                <div class="row mb-3">
+                  <div
+                    class="col-md-4 form-group"
+                    [class.is-invalid]="UserType.touched && UserType.invalid"
+                  >
+                    <div class="">
+                      <div class="pb-2 fs14">User Type</div>
+
+                      <select
+                        class="form-control w-100 h-40 pl-2"
+                        [(ngModel)]="userType"
+                        (click)="filterUsers()"
+                        formControlName="userType"
+                        required
+                      >
+                        <option class="fs14" [ngValue]="null"
+                          >Select User Type</option
+                        >
+                        <option
+                          style="font-size: 14px;"
+                          *ngFor="let user of userTypes; let i = index"
+                        >
+                          {{ user }}
+                        </option>
+                      </select>
+                      <div *ngIf="UserType.touched && UserType.invalid">
+                        <small class="text-danger">
+                          Please select User type
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="float-left">
+                      <div class="pb-2 fs14 ">User Name</div>
+
+                      <div class="form-group">
+                        <input
+                          type="text"
+                          [class.is-invalid]="Name.invalid && Name.touched"
+                          class="w-100 p-2 h-40 form-control bg-white"
+                          formControlName="userNames"
+                          [(ngModel)]="userNames"
+                          placeholder="Enter the Name"
+                          minlength="3"
+                          onfocus="this.removeAttribute('readonly');"
+                          readonly
+                        />
+                        <div *ngIf="Name.invalid && Name.touched">
+                          <small
+                            class="text-danger"
+                            *ngIf="Name.errors?.required"
+                            >Username is required</small
+                          >
+                          <small
+                            class="text-danger"
+                            *ngIf="Name.errors?.minlength"
+                            >Username must be at least 3 characters</small
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="float-left">
+                      <div class="pb-2 fs14 ">Password</div>
+                      <div class="form-group">
+                        <input
+                          [class.is-invalid]="
+                            Password.invalid && Password.touched
+                          "
+                          type="password"
+                          class="w-100 p-2 h-40 form-control bg-white"
+                          [(ngModel)]="userPassword"
+                          formControlName="userPassword"
+                          placeholder="Enter the Password"
+                          onfocus="this.removeAttribute('readonly');"
+                          readonly
+                        />
+                        <div *ngIf="Password.invalid && Password.touched">
+                          <small
+                            class="text-danger"
+                            *ngIf="Password.errors?.required"
+                            >Password is required</small
+                          >
+                          <div
+                            class="text-danger line-height"
+                            *ngIf="Password.errors?.pattern"
+                          >
+                            Password should of length 6 containing atleast 1
+                            Uppercase, 1 number, 1 symbol
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-4">
+                    <div class="float-left">
+                      <div class="pb-2 fs14 ">Mobile no.</div>
+                      <div class="form-group">
+                        <input
+                          [class.is-invalid]="Phone.invalid && Phone.touched"
+                          class="w-100 p-2 h-40 form-control"
+                          [(ngModel)]="userMobile"
+                          formControlName="userMobile"
+                          placeholder="Enter the Mobile"
+                          type="number"
+                          onKeyPress="if(this.value.length==10) return false;"
+                        />
+                        <div
+                          *ngIf="Phone.errors && Phone.invalid && Phone.touched"
+                        >
+                          <small
+                            class="text-danger"
+                            *ngIf="Phone.errors?.required"
+                            >Phone number is required</small
+                          >
+                          <small
+                            class="text-danger"
+                            *ngIf="Phone.errors?.pattern"
+                            >Phone enter valid 10 digits phone number</small
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="float-left">
+                      <div class="pb-2 fs14 ">Email Id</div>
+                      <div class="form-group">
+                        <input
+                          [class.is-invalid]="Email.invalid && Email.touched"
+                          type="text"
+                          class="w-100 p-2 h-40 form-control"
+                          [(ngModel)]="userEmail"
+                          formControlName="userEmail"
+                          placeholder="Enter the Email"
+                        />
+                        <div *ngIf="Email.invalid && Email.touched">
+                          <small
+                            class="text-danger"
+                            *ngIf="Email.errors?.required"
+                          >
+                            Email is required</small
+                          >
+                          <small
+                            class="text-danger"
+                            *ngIf="Email.errors?.pattern"
+                          >
+                            Email is required</small
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer border-0">
+              <div class="col-md-12 ">
+                <div class="col-md-6 float-right">
+                  <button
+                    type="submit"
+                    [disabled]="!registrationForm.valid"
+                    (click)="saveUsers()"
+                    data-dismiss="modal"
+                    class="btn btn-yes"
+                  >
+                    Save
+                  </button>
+                </div>
+
+                <div class="col-md-6 float-left ">
+                  <button
+                    type="button"
+                    class="btn btn-cancel float-right"
+                    data-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- confirm delete -->
+    <div
+      class="container"
+      *ngIf="
+        userRoles &&
+        userRoles['userManagement'] &&
+        userRoles.userManagement[0].Delete
+      "
+    >
+      <div class="modal fade" id="delete">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content pb-4">
+            <div class="modal-header border-0">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body pt-0">
+              <h4 class="modal-title text-center">
+                Are you sure you want to delete ?
+              </h4>
+            </div>
+
+            <div class="modal-footer border-0">
+              <div class="col-md-12 ">
+                <div class="col-md-6 float-right">
+                  <button
+                    type="button"
+                    data-dismiss="modal"
+                    (click)="deleteUser()"
+                    class="btn btn-yes"
+                  >
+                    Yes
+                  </button>
+                </div>
+                <div class="col-md-6 float-left ">
+                  <button
+                    type="button"
+                    data-dismiss="modal"
+                    class="btn btn-cancel float-right"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
