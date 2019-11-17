@@ -9,6 +9,8 @@ import { UserDetailsComponent } from "./user-details/user-details.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
+import { SafePipe } from "./pipes/safe.pipe";
+
 /* Guards */
 import { AuthGuard } from "./guards/auth.guard";
 
@@ -33,6 +35,7 @@ import { UsersComponent } from "./users/users.component";
     UserFormComponent,
     UserDetailsComponent,
     HomeComponent,
+    SafePipe,
     UsersComponent
   ],
   imports: [

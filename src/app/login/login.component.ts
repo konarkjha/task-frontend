@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   forgotPassword: boolean = false;
   loginEmailMobile: boolean = false;
   showOtpScreen: boolean = false;
-  formUser = {};
+  formUser = <any>{};
   userID: any;
   otpVal: any;
   token: any;
