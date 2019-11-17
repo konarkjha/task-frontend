@@ -74,15 +74,14 @@ input:focus {
 }
 .bg-top-color {
   background-color: #ffffff;
-  height: 70px;
+  height: 100px;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.submitScreen {
-}
+
 // textarea {
 //   border: none;
 //   outline: none;

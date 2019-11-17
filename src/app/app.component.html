@@ -1,17 +1,3 @@
-<!-- <app-top-bar
-  [sideNavExpanded]="sideNavExpanded"
-  (expanded)="toggleSidenav($event)"
-  *ngIf="isLoggedIn()"
-></app-top-bar> -->
 <div class="bg-gray ">
-  <div
-    id="main"
-    class="p-4"
-    [ngClass]="{
-      'sidenav-expanded': sideNavExpanded,
-      'sidenav-collapsed': !sideNavExpanded
-    }"
-  >
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </div>
