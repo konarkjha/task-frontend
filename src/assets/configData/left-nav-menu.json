@@ -1,0 +1,142 @@
+{
+  "message": "Success",
+  "statusCode": 200,
+  "data": [
+    {
+      "title": "User Management",
+      "icon": "users",
+      "children": [
+        {
+          "path": "users",
+          "title": "Manage Users",
+          "icon": "user-tag"
+        },
+        {
+          "path": "edit-roles",
+          "title": "Edit Roles",
+          "icon": "user-tag"
+        }
+      ]
+    },
+    {
+      "path": "vendor-management/vendors",
+      "title": "Vendor Management",
+      "icon": "user-friends",
+      "children": [
+        {
+          "path": "vendor-management/vendors",
+          "title": "Manage Vendors",
+          "icon": "user-tag"
+        },
+        {
+          "path": "add-city",
+          "title": "Cities",
+          "icon": "city"
+        },
+        {
+          "path": "warehouse",
+          "title": "Warehouses",
+          "icon": "warehouse"
+        }
+      ]
+    },
+    {
+      "path": "addproducts",
+      "title": "Product Management",
+      "icon": "cart-plus",
+      "children": [
+        {
+          "path": "addproducts",
+          "title": "Manage Products",
+          "icon": "shopping-basket"
+        },
+        {
+          "path": "products",
+          "title": "Products Categories",
+          "icon": "shopping-basket"
+        },
+        {
+          "path": "discounts",
+          "title": "Discounts",
+          "icon": "percent"
+        }
+      ]
+    },
+    {
+      "title": "Purchase Order",
+      "icon": "user-tag",
+      "children": [
+        {
+          "path": "vendor-management/purchase-orders",
+          "title": "Manage Purchase Order"
+        },
+        {
+          "path": "vendor-management/purchaseOrderCreation",
+          "title": "Create Purchase Order"
+        },
+        {
+          "path": "vendor-management/quality-check",
+          "title": "Quality Check"
+        },
+        {
+          "path": "vendor-management/order-approval",
+          "title": "Order Approval"
+        }
+      ]
+    },
+    {
+      "path": "inventory-management/inventory-dashboard",
+      "title": "Inventory Management",
+      "icon": "warehouse",
+      "children": [
+        {
+          "path": "inventory-management/inventory-dashboard",
+          "title": "Inventory Dashboard"
+        },
+        {
+          "path": "inventory-management/update-inventory",
+          "title": "Update Inventory"
+        }
+      ]
+    },
+    {
+      "path": "delivery-management/delivery-dashboard",
+      "title": "Delivery & Pickup Management",
+      "icon": "truck",
+      "children": [
+        {
+          "path": "delivery-management/slot-configuration",
+          "title": "Slot Configuration"
+        },
+        {
+          "path": "delivery-management/holiday-configuration",
+          "title": "Holiday Configuration"
+        },
+        {
+          "path": "delivery-management/driver-configuration",
+          "title": "Driver Configuration"
+        },
+        {
+          "path": "delivery-management/vehicle-configuration",
+          "title": "Vehicle Configuration"
+        },
+        {
+          "path": "delivery-management/book-slot",
+          "title": "Book Slot"
+        },
+        {
+          "path": "delivery-management/delivery-dashboard",
+          "title": "Delivery/Pick Up Dashboard"
+        },
+        {
+          "path": "delivery-management/plot-of-delivery",
+          "title": "Plot of Delivery"
+        },
+        {
+          "path": "delivery-management/point-of-pickup",
+          "title": "Point of Pickup"
+        }
+      ]
+    }
+  ]
+}
