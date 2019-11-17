@@ -131,8 +131,6 @@ export class UserFormComponent implements OnInit {
     formData.append("email", this.userData.email);
     formData.append("contactNumber", this.userData.contactNumber);
     formData.append("userType", this.userData.userType);
-    console.log(formData, "KKKKKKKK");
-
     this.api.updateUserData(formData).subscribe(response => {
       if (response.statusCode == STATUS_CODES.SUCCESS) {
         this.getUserById();
@@ -159,5 +157,8 @@ export class UserFormComponent implements OnInit {
     } else {
       return true;
     }
+  }
+  onFileChanged(event: any) {
+    this.seletedFiles = <File>event.target.files[0];
   }
 }

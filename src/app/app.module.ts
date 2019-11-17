@@ -6,7 +6,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from "ngx-toastr";
 import { ToastrService } from "ngx-toastr";
 import { UserDetailsComponent } from "./user-details/user-details.component";
-import { TopBarComponent } from "./top-bar/top-bar.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
@@ -34,8 +33,7 @@ import { UsersComponent } from "./users/users.component";
     UserFormComponent,
     UserDetailsComponent,
     HomeComponent,
-    UsersComponent,
-    TopBarComponent
+    UsersComponent
   ],
   imports: [
     BrowserModule,

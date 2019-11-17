@@ -139,8 +139,6 @@ export class LoginComponent implements OnInit {
 
   //Login with email or contact number and password
   login(json) {
-    console.log("json", json);
-
     if (
       (json && json.contactNumber && json.password) ||
       (json && json.email && json.password)

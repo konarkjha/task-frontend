@@ -107,8 +107,6 @@ export class BaseService {
     } else {
       this.userRoles = null;
     }
-    console.log(this.userRoles.userManagement[0].Delete, "<<<<<<<<<<<<<<");
-
     return this.userRoles;
   }
 

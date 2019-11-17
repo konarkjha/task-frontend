@@ -70,7 +70,9 @@ export class UsersComponent implements OnInit {
     this.spinnerConfigs = SPINNER_CONFIGS;
     this.isSavingUser = false;
   }
-
+  onFileChanged(event: any) {
+    this.seletedFiles = <File>event.target.files[0];
+  }
   ngOnInit() {
     this.userNames = "";
     this.userPassword = "";
@@ -79,8 +81,6 @@ export class UsersComponent implements OnInit {
     this.loggedInUserType = JSON.parse(
       sessionStorage.getItem(SESSION_STORAGE.DETAILS)
     );
-    console.log(this.loggedInUserType.userType, "<<<<<<<<<<");
-
     this.registrationForm = new FormGroup({
       userNames: new FormControl(
         { value: "" },
@@ -137,6 +137,19 @@ export class UsersComponent implements OnInit {
     return this.registrationForm.get("userType");
   }
 
+  getUserName() {
+    let userData = this.api.getUserData();
+    return userData.name;
+  }
+
+  getUserFirstLetter() {
+    let userData = this.api.getUserData();
+    let userName = userData.name;
+    return userName.charAt(0).toUpperCase();
+  }
+  logout() {
+    this.api.logout();
+  }
   getUsers() {
     this.api.getUsers().subscribe(
       response => {
@@ -218,13 +231,8 @@ export class UsersComponent implements OnInit {
 
   getUserTypes() {
     this.api.getAllUserTypes().subscribe(response => {
-      console.log("response", response);
-
       let res = response && response._body && JSON.parse(response._body);
-      console.log(res, "KKKKKK");
-
       this.userTypes = res.data;
-      console.log(this.userTypes, "PPPP");
     });
   }
 
@@ -272,11 +280,8 @@ export class UsersComponent implements OnInit {
         },
         error => {
           this.spinner.hide();
-          $("#addVendor").modal("hide");
         }
       );
-    } else {
-      $("#addVendor").modal("hide");
     }
 
     // window.location.reload();
@@ -343,8 +348,5 @@ export class UsersComponent implements OnInit {
     } else {
       return true;
     }
-  }
-  onFileChanged(event: any) {
-    this.seletedFiles = <File>event.target.files[0];
   }
 }

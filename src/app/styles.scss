@@ -223,22 +223,22 @@
   }
 }
 /*Toaster CSS*/
-// #toast-container > .toast-success {
-//   background-color: #754f38;
-// }
-// #toast-container > .toast-error {
-//   background-color: #dc3545;
-//   width: 300px;
-//   padding: 10px;
-//   color: #fff;
-//   border-radius: 3px;
-//   position: absolute;
-//   top: 10px;
-//   right: 10px;
-//   font-size: 14px;
-//   text-align: center;
-//   height: 40px;
-// }
+#toast-container > .toast-success {
+  background-color: #754f38;
+}
+#toast-container > .toast-error {
+  background-color: #dc3545;
+  width: 300px;
+  padding: 10px;
+  color: #fff;
+  border-radius: 3px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 14px;
+  text-align: center;
+  height: 40px;
+}
 .popup {
   max-width: 700px !important;
   font-family: Noto Sans;
