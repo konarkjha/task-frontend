@@ -78,6 +78,7 @@ export class UsersComponent implements OnInit {
     this.userPassword = "";
     this.spinner.show();
     this.getUsers();
+    this.getUserTypes();
     this.loggedInUserType = JSON.parse(
       sessionStorage.getItem(SESSION_STORAGE.DETAILS)
     );
@@ -242,7 +243,7 @@ export class UsersComponent implements OnInit {
   deleteUser() {
     this.spinner.show();
     this.api.deleteUserById(this.storeDeleteId).subscribe(response => {
-      this.toastr.success(MESSAGES.DATA_DELETED);
+      alert(MESSAGES.DATA_DELETED);
       this.spinner.hide();
       this.getUsers();
     });
@@ -269,7 +270,7 @@ export class UsersComponent implements OnInit {
         response => {
           this.newUser = response && response.data;
           this.spinner.hide();
-          this.toastr.success(MESSAGES.USER_CREATED);
+          alert(MESSAGES.USER_CREATED);
           this.users.push(this.newUser);
           $("#userModal").modal("hide");
           this.getUsers();
