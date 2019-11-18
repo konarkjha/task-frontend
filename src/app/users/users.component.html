@@ -41,11 +41,6 @@
           class="btn btn-primary"
           data-target="#userModal"
           data-toggle="modal"
-          *ngIf="
-            userRoles &&
-            userRoles.userManagement &&
-            userRoles.userManagement[0].Add
-          "
         >
           <i class="fas fa-plus"></i>
           Add User
@@ -89,7 +84,7 @@
                   type="submit"
                   (click)="logout()"
                   data-dismiss="modal"
-                  class="btn btn-yes"
+                  class="btn btn-primary"
                 >
                   Logout
                 </button>
@@ -98,7 +93,7 @@
               <div class="col-md-6 float-left ">
                 <button
                   type="button"
-                  class="btn btn-cancel float-right"
+                  class="btn btn-danger float-right"
                   data-dismiss="modal"
                 >
                   Cancel
@@ -420,7 +415,7 @@
                     [disabled]="!registrationForm.valid"
                     (click)="saveUsers()"
                     data-dismiss="modal"
-                    class="btn btn-yes"
+                    class="btn btn-primary"
                   >
                     Save
                   </button>
@@ -429,7 +424,7 @@
                 <div class="col-md-6 float-left ">
                   <button
                     type="button"
-                    class="btn btn-cancel float-right"
+                    class="btn btn-danger float-right"
                     data-dismiss="modal"
                   >
                     Cancel
@@ -481,7 +476,7 @@
                   <button
                     type="button"
                     data-dismiss="modal"
-                    class="btn btn-cancel float-right"
+                    class="btn btn-danger float-right"
                   >
                     Cancel
                   </button>

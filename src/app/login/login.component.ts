@@ -182,9 +182,8 @@ export class LoginComponent implements OnInit {
             SESSION_STORAGE.RESEND,
             JSON.stringify({ contactNumber: json.contactNumber })
           );
-
           this.spinner.hide();
-          this.openAnyPopUp("showOtpScreen", true);
+          location.reload();
         } else {
           this.toastr.error("status code failed"); // need to display toast message here
         }
