@@ -71,7 +71,7 @@ export class UsersComponent implements OnInit {
     this.isSavingUser = false;
   }
   onFileChanged(event: any) {
-    this.seletedFiles = <File>event.target.files[0];
+    this.seletedFiles = <File>event.target.files;
   }
   ngOnInit() {
     this.userNames = "";
@@ -267,8 +267,7 @@ export class UsersComponent implements OnInit {
       this.spinner.show();
       this.api.createUsers(payload).subscribe(
         response => {
-          this.newUser =
-            response && response._body && JSON.parse(response._body).data;
+          this.newUser = response && response.data;
           this.spinner.hide();
           this.toastr.success(MESSAGES.USER_CREATED);
           this.users.push(this.newUser);

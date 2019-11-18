@@ -117,19 +117,6 @@ export class ApiService extends BaseService {
     );
   }
 
-  //   forgotPassword(payload): Observable<any> {
-  //     return this.post(`${this.apiUrl}/forgotpassword`, payload).pipe(
-  //       map((ret: Response) => {
-  //         return ret.json();
-  //       }),
-  //       catchError((error: Response) => {
-  //         this.onError(error);
-  //         return throwError(UNKNOWN_ERROR_MESSAGE);
-  //       }),
-  //       finalize(() => {})
-  //     );
-  //   }
-
   signIn(json): Observable<any> {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
@@ -144,19 +131,6 @@ export class ApiService extends BaseService {
     //  headers.append('Authorization', 'Bearer ');
     return this.post(`${this.apiUrl}/signup`, json, headers);
   }
-
-  //   verifySignUpWithOtp(json): Observable<any> {
-  //     let headers = new Headers();
-  //     headers.append("Content-Type", "application/json");
-  //     return this.post(`${this.apiUrl}/verify`, json, headers);
-  //   }
-
-  //   loginWithOtp(json): Observable<any> {
-  //     let headers = new Headers();
-  //     headers.append("Content-Type", "application/json");
-  //     return this.post(`${this.apiUrl}/login`, json, headers);
-  //   }
-
   updateUserData(payload): Observable<any> {
     return this.put(`${this.apiUrl}/user`, payload).pipe(
       map((ret: Response) => {

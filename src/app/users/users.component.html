@@ -1,20 +1,78 @@
-<div class="header">
-  <div class="w-100">
-    <div class="userDetail">
-      <div class="dropdown float-right">
-        <div class="dropbtn pt-2">{{ getUserFirstLetter() }}</div>
-
-        <div class="dropdown-content"></div>
-        <i
+<div class="row pt-2 pb-2">
+  <div class="col-lg-2">
+    All Users
+    <span *ngIf="users">({{ users.length }})</span>
+  </div>
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 text-right">Filter by User Types</div>
+      <div class="col-md-6 text-left">
+        <select
+          class="userDropDown fs14"
+          (change)="filterUsers()"
+          [(ngModel)]="filterUserValue"
+        >
+          <option class="form-control" [ngValue]="null">All Users</option>
+          <option
+            style="font-size: 14px;"
+            *ngFor="let user of userTypes; let i = index"
+          >
+            {{ user }}</option
+          >
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="row">
+      <div class="col-md-9">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search user by name, email, contact no.."
+          aria-label="Search user by name, email, contact no.."
+          aria-describedby="searchprepend"
+          [(ngModel)]="searchText"
+          (ngModelChange)="searchUser($event)"
+        />
+      </div>
+      <div class="col-md-3">
+        <button
+          class="btn btn-primary"
+          data-target="#userModal"
+          data-toggle="modal"
+          *ngIf="
+            userRoles &&
+            userRoles.userManagement &&
+            userRoles.userManagement[0].Add
+          "
+        >
+          <i class="fas fa-plus"></i>
+          Add User
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-6 text-right">
+        <h4>Hi, {{ getUserName() }}</h4>
+      </div>
+      <div class="col-md-6 text-left">
+        <h4
           class="fas fa-sign-out-alt cursor-pointer logoutDesign"
           data-target="#myModal1"
           data-toggle="modal"
-          ><a class=""></a
-        ></i>
+        >
+          <a class=""></a>
+        </h4>
       </div>
-      <div class="userName float-right my-4 mx-0">Hi, {{ getUserName() }}</div>
-
-      <!-- </nav> -->
+    </div>
+  </div>
+</div>
+<div class="header">
+  <div class="w-100">
+    <div class="userDetail">
       <!-- logout modal -->
       <div class="modal fade" id="myModal1">
         <div class="modal-dialog modal-dialog-centered popup">
@@ -53,55 +111,10 @@
     </div>
   </div>
   <div class="pt-2 pb-2">
-    <span class="float-left page-header">All Users</span>
-    <span class="smallPageHeader" *ngIf="users">({{ users.length }})</span>
-
-    <div
-      class="add cursor-pointer"
-      data-target="#userModal"
-      class="btn btn-color float-right"
-      data-toggle="modal"
-      *ngIf="
-        userRoles && userRoles.userManagement && userRoles.userManagement[0].Add
-      "
-    >
-      <i class="fas fa-plus"></i>
-      Add User With Role
-    </div>
-
     <div class="d-inline">
       <div class="col-sm-4 input-group mb-3 float-right w-50">
-        <div class="input-group-prepend">
-          <span class="input-group-text bg-white" id="searchprepend"
-            ><i class="fa fa-search"></i
-          ></span>
-        </div>
-        <input
-          type="text"
-          class="form-control searchInput"
-          placeholder="Search user by name, email, contact no.."
-          aria-label="Search user by name, email, contact no.."
-          aria-describedby="searchprepend"
-          [(ngModel)]="searchText"
-          (ngModelChange)="searchUser($event)"
-        />
+        <div class="input-group-prepend"></div>
       </div>
-      <div class="float-right mr-2 pl-2">
-        <select
-          class="userDropDown fs14"
-          (click)="filterUsers()"
-          [(ngModel)]="filterUserValue"
-        >
-          <option class="fs14" [ngValue]="null">All Users</option>
-          <option
-            style="font-size: 14px;"
-            *ngFor="let user of userTypes; let i = index"
-          >
-            {{ user }}</option
-          >
-        </select>
-      </div>
-      <label class="float-right mr-2 mt-2 fs10">Filter By user Type</label>
     </div>
     <ngx-spinner
       [bdColor]="spinnerConfigs.BDCOLOR"
@@ -150,7 +163,6 @@
           (scrolled)="onScrollDown()"
           *ngIf="users.length"
         >
-          <!-- (scrolledUp)="onUp()" -->
           <tr class="fs13" *ngFor="let user of users; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ user.name }}</td>

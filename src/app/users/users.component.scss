@@ -86,8 +86,10 @@ input[type="number"]::-webkit-outer-spin-button {
 .line-height {
   line-break: 10px;
 }
+
 .table td,
 th {
+  width: 20%;
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -211,4 +213,9 @@ th {
   z-index: 1;
   right: 1rem;
   border-radius: 5px;
+}
+
+.pt-2 {
+  padding-left: 10px;
+  padding-right: 10px;
 }
